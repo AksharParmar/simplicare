@@ -1,0 +1,30 @@
+{
+  "john_doe": {
+    "password": "$2b$12$N8kn1PSAJuDHL/E...",
+    "medications": [
+      {
+        "medName": "Aspirin",
+        "dosage": "10mg",
+        "time": "08:00"
+      }
+    ]
+  },
+  "sarah_smith": {
+    "password": "$2b$12$d8xnX78...",
+    "medications": []
+  },
+  "akshar": {
+    "password": "$2b$12$HgigP.UFj9VEqCLPetIM3uBushB8crlC4LNyhfXFItDLl78zNPnmS",
+    "medications": [
+      {
+        "medName": "Ibiprophen",
+        "dosage": "100mg",
+        "time": "15:32"
+      }
+    ]
+  },
+  "akshar ": {
+    "password": "$2b$12$2U3wlCgxxh8V6N1TdieHHOWWo1f8jfWG5luNTlFkstg7ORNdYvuGy",
+    "medications": []
+  }
+}

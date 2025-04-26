@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to SimpliCare</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="landing-body">
+  <div class="container">
+    <h1>Welcome to SimpliCare</h1>
+    <p>Your health, made simple.</p>
+
+    <form action="/login" method="POST" class="login-form">
+      <input type="text" name="username" placeholder="Enter your username" required><br>
+      <input type="password" name="password" placeholder="Enter your password" required><br>
+      <button type="submit">Log In</button>
+    </form>
+
+    <p>New user?</p>
+    <form action="/register" method="POST" class="login-form">
+      <input type="text" name="username" placeholder="Create username" required><br>
+      <input type="password" name="password" placeholder="Create password" required><br>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>

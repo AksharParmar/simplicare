@@ -1,0 +1,128 @@
+/* Base setup */
+body {
+    font-family: 'Product Sans', sans-serif;
+    background-color: #FAF9F6; /* soft beige */
+    margin: 0;
+    padding: 0;
+    color: #00796B; /* dark teal */
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding-top: 50px;
+    text-align: center;
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #00796B;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #00695C;
+  }
+  
+  /* Inputs */
+  input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Medication List */
+  #medication-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #B2DFDB; /* light mint */
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  /* Landing Page tweaks */
+  .landing-body {
+    background-color: #FAF9F6;
+  }
+  
+  .login-form {
+    margin-top: 30px;
+  }
+  
+  .logout-btn {
+    display: inline-block;
+    margin: 10px 0 20px;
+    color: #00796B;
+    text-decoration: underline;
+    font-size: 16px;
+  }
+
+  /* Landing Page Specific Styles */
+
+.landing-body {
+    background-color: #FAF9F6; /* soft beige background */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 36px;
+    color: #00796B; /* dark teal */
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #757575; /* soft grey */
+    margin-bottom: 30px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #00796B; /* dark teal button */
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #00695C; /* darker teal hover */
+  }
+  
+  
