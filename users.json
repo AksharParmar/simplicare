@@ -20,11 +20,26 @@
         "medName": "Ibiprophen",
         "dosage": "100mg",
         "time": "15:32"
+      },
+      {
+        "medName": "Ibiprophen",
+        "dosage": "10mg",
+        "time": "12:31"
       }
     ]
   },
   "akshar ": {
     "password": "$2b$12$2U3wlCgxxh8V6N1TdieHHOWWo1f8jfWG5luNTlFkstg7ORNdYvuGy",
     "medications": []
+  },
+  "manav patel": {
+    "password": "$2b$12$U2zIYBdD3ghzwmphskvbB.qwpU8y1nQpF4OCE8xzCZHamTpum7/gO",
+    "medications": [
+      {
+        "medName": "adfasf",
+        "dosage": "asfasf",
+        "time": "01:23"
+      }
+    ]
   }
 }
