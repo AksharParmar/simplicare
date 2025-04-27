@@ -7,7 +7,7 @@
   <!-- Product Sans -->
   <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- GLOBAL stylesheet only -->
+  <!-- GLOBAL stylesheet -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
@@ -18,21 +18,31 @@
     <h1 class="page-title">Medication &amp; Appointments Calendar</h1>
 
     <section id="calendar" class="calendar card">
-      <header class="calendar__header">
-        <div class="nav">
-          <button id="prevBtn"  class="nav-btn" aria-label="Previous month">&#10094;</button>
-          <h2 id="monthLabel"></h2>
-          <button id="nextBtn"  class="nav-btn" aria-label="Next month">&#10095;</button>
-        </div>
 
-        <div class="view-switch">
-          <button id="viewMonthBtn" class="view-btn">Month</button>
-          <button id="viewWeekBtn"  class="view-btn">Week</button>
-          <button id="viewDayBtn"   class="view-btn">Day</button>
-        </div>
+      <!-- ─────────────────── streamlined header ─────────────────── -->
+      <header class="calendar__header">
+        <!-- left / right arrows -->
+        <button id="prevBtn" class="nav-btn nav-btn--square" aria-label="Previous month">
+          &#10094;
+        </button>
+
+        <!-- centred month / year -->
+        <h2 id="monthLabel" class="calendar__title"></h2>
+
+        <button id="nextBtn" class="nav-btn nav-btn--square" aria-label="Next month">
+          &#10095;
+        </button>
       </header>
 
-      <div id="calendarGrid" class="calendar__grid"><!-- JS injects days --></div>
+      <!-- view-mode toggle -->
+      <nav class="view-switch">
+        <button id="viewMonthBtn" class="view-btn">Month</button>
+        <button id="viewWeekBtn"  class="view-btn">Week</button>
+        <button id="viewDayBtn"   class="view-btn">Day</button>
+      </nav>
+
+      <!-- calendar grid injected by JS -->
+      <div id="calendarGrid" class="calendar__grid"></div>
     </section>
   </main>
 

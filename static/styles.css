@@ -661,174 +661,86 @@ body{
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
 }
 
-/* ----- calendar component ----- */
-.calendar{
-  max-width: 420px;
-  margin-inline: auto;
+/* ========================================================== */
+/* 5.  CALENDAR COMPONENT                                     */
+/* ========================================================== */
+
+/* ---------- container sizing ---------- */
+.calendar{width:100%;max-width:none;margin-inline:auto;}
+.calendar.card{
+  flex:1 1 auto;
+  width:70vw;                        /* 70 % viewport width   */
+  max-width:1100px;min-width:600px;
 }
 
+/* ---------- header mini-card ---------- */
 .calendar__header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  color:#fff;
-  background: var(--dark-teal);
-  padding:.5rem 1rem;
-  border-radius:.6rem .6rem 0 0;
+  position:relative;
+  display:flex;justify-content:center;align-items:center;
+  background:#fff;border-radius:1rem;
+  padding:1.25rem 0;margin:0 1rem 1.25rem;
+  box-shadow:0 4px 10px rgba(0,0,0,.06);
 }
 
-#monthLabel{
-  font-size:1.25rem;
-  font-weight:600;
-  margin:0;
-}
+/* centred month label */
+#monthLabel,
+.calendar__title{margin:0;font-size:1.4rem;font-weight:600;color:var(--dark-teal);}
 
+/* ---------- arrow buttons ---------- */
 .nav-btn{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:1.6rem;
-  cursor:pointer;
-  transition:transform .2s;
+  background:none;border:none;color:inherit;cursor:pointer;
 }
-.nav-btn:hover{transform:scale(1.2);}
+/* generic hover scale kept for NON-square buttons (if you add any later) */
+.nav-btn:hover:not(.nav-btn--square){transform:scale(1.2);}
 
-/* grid of days */
-.calendar__grid{
-  display:grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap:.25rem;
-  padding:.75rem .25rem 1rem;
+.nav-btn--square{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border:none;border-radius:14px;
+  background:#fff;color:var(--dark-teal);
+  font-size:1.4rem;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 8px rgba(0,0,0,.08);
+  transition:background .2s,box-shadow .2s;
 }
-
-.day-name, .date{
-  text-align:center;
-  padding:.5rem 0;
-}
-
-.day-name{
-  font-weight:600;
-  color:var(--cool-grey);
-}
-
-.date{
-  cursor:pointer;
-  border-radius:.5rem;
-  transition: background .2s;
-}
-.date:hover{
+.nav-btn--square:hover{
   background:var(--light-mint);
+  box-shadow:0 5px 12px rgba(0,0,0,.10);
+  transform:translateY(-50%);               /* stays centred */
 }
+#prevBtn{left:1rem;}
+#nextBtn{right:1rem;}
 
-.date--today{
-  outline:2px solid var(--dark-teal);
-  outline-offset:-2px;
+/* ---------- view switch ---------- */
+.view-switch{
+  display:flex;justify-content:center;gap:.5rem;
+  padding:.5rem 0 1rem;
 }
-.date--selected{
-  background:var(--soft-yellow);
-}
-
-/* responsive tweak */
-@media(max-width:480px){
-  #monthLabel{font-size:1.1rem;}
-}
-
-
-/* card wrapper */
-.card{
-  background:#fff;
-  border-radius:.8rem;
-  padding:1.25rem 1rem;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-/* ---------- calendar ---------- */
-.calendar{
-  width:100 vh;       
-  max-width:none;                  
-  margin-inline:auto;
-}
-
-/* header */
-.calendar__header{
-  display:flex !important;              /* <-- keep flex */
-  justify-content:space-between;
-  align-items:center;
-  background:var(--dark-teal);
-  color:#fff;
-  padding:.5rem 1rem;
-  border-radius:.6rem .6rem 0 0;
-}
-#monthLabel{font-size:1.25rem;font-weight:600;margin:0;}
-
-.nav-btn{
-  background:none;border:none;color:inherit;
-  font-size:1.5rem;cursor:pointer;transition:transform .2s;
-}
-.nav-btn:hover{transform:scale(1.2);}
-
-/* view buttons */
-.view-switch{display:flex !important;gap:.25rem !important;}
 .view-btn{
-  background:transparent;border:none;color:inherit;
-  padding:.25rem .6rem;border-radius:.4rem;
-  font-weight:600;cursor:pointer;transition:background .2s;
+  background:transparent;border:none;color:var(--dark-teal);
+  padding:.25rem .6rem;border-radius:.4rem;font-weight:600;
+  cursor:pointer;transition:background .2s;
 }
-.view-btn.active,
-.view-btn:hover{background:rgba(255,255,255,.15);}
+.view-btn:hover,
+.view-btn.active{background:rgba(0,0,0,.06);}
 
-/* grid for month/week/day cells */
+/* ---------- grid ---------- */
 .calendar__grid{
-  display:grid !important;              /* <-- force grid */
-  grid-template-columns:repeat(7,1fr);
-  gap:.25rem !important;
-  padding:.75rem .25rem 1rem;
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:.25rem;padding:.75rem .25rem 1rem;
 }
-
-/* cells */
-.day-name,.date{text-align:center;padding:.5rem 0;}
-.day-name{font-weight:600;color:var(--cool-grey);}
-
+.day-name{
+  text-align:center;padding:.5rem 0;font-weight:600;color:var(--cool-grey);
+}
 .date{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor:pointer;border-radius:.5rem;
+  display:flex;align-items:center;justify-content:center;
+  aspect-ratio:1/1;border-radius:.5rem;cursor:pointer;
+  font-size: clamp(1rem, 2vw, 1.4rem);   /* ⬅ bigger numbers */
   transition:background .2s;
-  aspect-ratio: 1 / 1;
-  font-size: clamp(.8rem,1.5vw,1rem);
 }
-
 .date:hover{background:var(--light-mint);}
-.date--today{
-  outline:2px solid var(--dark-teal);
-  outline-offset:-2px;
-}
+.date--today{outline:2px solid var(--dark-teal);outline-offset:-2px;}
 .date--selected{background:var(--soft-yellow);}
 
-/* small-screen tweak */
-@media(max-width:480px){#monthLabel{font-size:1.1rem;}}
-
-/* if .main-content is your flex column: */
-.main-content{
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;           /* full viewport height */
+@media(max-width:480px){
+  #monthLabel{font-size:1.2rem;}
+  .nav-btn--square{width:36px;height:36px;font-size:1.2rem;}
 }
-
-.calendar.card{
-  flex:1 1 auto;              /* grow to fill leftover space */
-  height:70vh;                /* ≈70 % of the viewport height */
-  overflow:auto;            /* scroll if content overflows */
-  width:70vw;
-  max-width:1100px;
-  min-width:600px;
-
-  /* center it; remove if you prefer left-aligned */
-  margin-inline:auto;
-
-  /* let it grow vertically if you followed earlier height advice */
-  flex:1 1 auto;
-}
-
-
