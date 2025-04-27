@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SimpliCare – Calendar</title>
+
+  <!-- Product Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- GLOBAL stylesheet only -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="dashboard-page">
+  {% include 'sidebar.html' %}
+
+  <main class="main-content">
+    <h1 class="page-title">Medication &amp; Appointments Calendar</h1>
+
+    <section id="calendar" class="calendar card">
+      <header class="calendar__header">
+        <div class="nav">
+          <button id="prevBtn"  class="nav-btn" aria-label="Previous month">&#10094;</button>
+          <h2 id="monthLabel"></h2>
+          <button id="nextBtn"  class="nav-btn" aria-label="Next month">&#10095;</button>
+        </div>
+
+        <div class="view-switch">
+          <button id="viewMonthBtn" class="view-btn">Month</button>
+          <button id="viewWeekBtn"  class="view-btn">Week</button>
+          <button id="viewDayBtn"   class="view-btn">Day</button>
+        </div>
+      </header>
+
+      <div id="calendarGrid" class="calendar__grid"><!-- JS injects days --></div>
+    </section>
+  </main>
+
+  <!-- logic -->
+  <script src="{{ url_for('static', filename='calendar.js') }}"></script>
+</body>
+</html>

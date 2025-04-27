@@ -1,28 +1,23 @@
+<!-- templates/landing.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome to SimpliCare</title>
+  <title>SimpliCare - Welcome</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
 </head>
-<body class="landing-body">
-  <div class="container">
+<body class="landing-page">
+  <div class="landing-container">
     <h1>Welcome to SimpliCare</h1>
-    <p>Your health, made simple.</p>
+    <p>Your friendly medication buddy</p>
 
-    <form action="/login" method="POST" class="login-form">
-      <input type="text" name="username" placeholder="Enter your username" required><br>
-      <input type="password" name="password" placeholder="Enter your password" required><br>
-      <button type="submit">Log In</button>
-    </form>
-
-    <p>New user?</p>
-    <form action="/register" method="POST" class="login-form">
-      <input type="text" name="username" placeholder="Create username" required><br>
-      <input type="password" name="password" placeholder="Create password" required><br>
-      <button type="submit">Register</button>
-    </form>
+    <div class="button-group">
+      <a href="/login"><button class="primary-btn">Log In</button></a>
+      <a href="/register"><button class="secondary-btn">Register</button></a>
+    </div>
   </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

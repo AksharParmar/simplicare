@@ -1,0 +1,96 @@
+<!-- templates/settings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpliCare - Settings</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-page">
+  {% include 'sidebar.html' %}
+  
+  <div class="main-content">
+    <h1>Settings & Profile</h1>
+
+    <!-- Profile Information Always Open -->
+    <div class="tile profile-tile">
+      <h3>Profile Information</h3>
+      <form id="profile-form">
+        <div class="profile-picture">
+          <img src="{{ url_for('static', filename='icons/profile-placeholder.png') }}" alt="Profile Picture" id="profile-pic">
+          <input type="file" id="upload-pic" accept="image/*">
+          <small>Update your picture to personalize your dashboard!</small>
+        </div>
+        <input type="text" id="profile-name" placeholder="Your Display Name" required><br>
+        <input type="text" id="profile-username" placeholder="Username" required><br>
+        <input type="email" id="profile-email" placeholder="Your Email" required><br>
+        <input type="password" id="profile-password" placeholder="New Password"><br>
+        <button type="submit" class="primary-btn">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- Expandable Sections (Properly Organized) -->
+
+    <!-- Medication Settings Section -->
+    <div class="expand-section">
+      <button class="expand-btn" onclick="toggleSection(this, 'medication-settings')">
+        <span>Medication Settings</span> <span class="arrow">▼</span>
+      </button>
+      <div class="tile hidden" id="medication-settings">
+        <h3>Medication Management</h3>
+        <p>Manage your current medications, set reminders, and adjust schedules.</p>
+        <button class="primary-btn" onclick="location.href='/mymedications'">Go to My Medications</button><br><br>
+        <p><strong>Pill Bottle Scanning:</strong> (Coming Soon) Easily scan your prescriptions for quick setup.</p>
+      </div>
+    </div>
+
+    <!-- Data & Privacy Section -->
+    <div class="expand-section">
+      <button class="expand-btn" onclick="toggleSection(this, 'data-privacy')">
+        <span>Data & Privacy</span> <span class="arrow">▼</span>
+      </button>
+      <div class="tile hidden" id="data-privacy">
+        <h3>Data & Privacy Controls</h3>
+        <p>Manage how your medication data is stored and shared.</p>
+        <label><input type="checkbox" id="privacy-toggle"> Keep my data private (Only viewable by me)</label><br><br>
+        <button class="primary-btn" id="export-data-btn">Export My Medication Data</button><br><br>
+        <button class="primary-btn delete-btn" id="delete-account-btn">Delete My Account</button>
+      </div>
+    </div>
+
+    <!-- Notifications & Alerts Section -->
+    <div class="expand-section">
+      <button class="expand-btn" onclick="toggleSection(this, 'notifications-alerts')">
+        <span>Notifications & Alerts</span> <span class="arrow">▼</span>
+      </button>
+      <div class="tile hidden" id="notifications-alerts">
+        <h3>Manage Alerts</h3>
+        <p>Stay on track with your medications with timely alerts.</p>
+        <label><input type="checkbox" id="med-alerts-toggle"> Enable Medication Reminders</label><br><br>
+        <label><input type="checkbox" id="side-effects-toggle"> Side Effect Alerts (Coming Soon)</label><br><br>
+        <label><input type="checkbox" id="daily-summary-toggle"> Receive Daily Adherence Summary</label>
+      </div>
+    </div>
+
+    <!-- Help & Support Section -->
+    <div class="expand-section">
+      <button class="expand-btn" onclick="toggleSection(this, 'help-support')">
+        <span>Help & Support</span> <span class="arrow">▼</span>
+      </button>
+      <div class="tile hidden" id="help-support">
+        <h3>Support & Resources</h3>
+        <p><a href="#">Frequently Asked Questions (FAQ)</a></p>
+        <p><a href="#">Contact SimpliCare Support</a></p>
+        <p><a href="#">See What's New (Latest App Updates)</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='settings.js') }}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

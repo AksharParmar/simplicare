@@ -1,0 +1,57 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpliCare - Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-page">
+  
+  <!-- Sidebar -->
+  {% include 'sidebar.html' %}
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      {% if profile_pic %}
+        <img src="{{ url_for('static', filename=profile_pic.split('static/')[-1]) }}" alt="Profile Picture" class="dashboard-profile-pic">
+      {% else %}
+        <img src="{{ url_for('static', filename='icons/profile-placeholder.png') }}" alt="Default Profile" class="dashboard-profile-pic">
+      {% endif %}
+      <h1>Welcome, {{ display_name }} 👋</h1>
+    </div>
+
+    <!-- Tile Grid Section -->
+    <div class="tile-grid">
+      
+      <!-- My Medications -->
+      <div class="tile" id="medication-list-tile">
+        <h3>My Medications</h3>
+          <!-- Medications will be dynamically added here by app.js -->
+        </ul>
+        <ul id="dashboard-medication-list" class="dashboard-medication-list">
+
+      </div>
+
+      <!-- Confirm Intake Tile -->
+      <div class="tile" id="confirmation-tile">
+        <h3>Confirm Intake</h3>
+        <button class="primary-btn" id="confirm-button">I Took My Meds</button>
+        <div id="confirmation-message"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- templates/chatbot.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpliCare - Medical Chatbot</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- Sidebar -->
+  {% include 'sidebar.html' %}
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Ask Your Medical Assistant 🤖💊</h1>
+
+    <!-- Chat Box -->
+    <div id="chatbox" class="chatbox">
+      <!-- Chat messages will appear here -->
+    </div>
+
+    <!-- Chat Form -->
+    <form id="chat-form" class="chat-form">
+      <input type="text" id="user-input" placeholder="Ask about your medications..." required autocomplete="off">
+      <button type="submit" class="primary-btn">Send</button>
+    </form>
+  </div>
+
+  <!-- Scripts (Always load JS after HTML) -->
+  <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+</html>

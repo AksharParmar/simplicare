@@ -1,0 +1,44 @@
+<!-- templates/listview.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpliCare - My Medications</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- Sidebar -->
+  {% include 'sidebar.html' %}
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Manage Your Medications</h1>
+
+    <!-- Medication Input Form -->
+    <form id="medication-form" class="medication-form">
+      <input type="text" id="medicine-name" placeholder="Medicine Name" required><br>
+      <input type="number" id="dosage" placeholder="Dosage (mg)" required><br>
+      <input type="number" id="daily-intake" placeholder="Times per day" required><br>
+      <input type="number" id="weekly-frequency" placeholder="Weekly Frequency (optional)"><br>
+      <button type="submit" class="primary-btn">Add Medication</button>
+    </form>
+
+    <hr style="margin: 20px 0;">
+
+    <!-- Current Medication List -->
+    <h2>My Current Medications</h2>
+    <ul id="medication-list" class="medication-list">
+      <!-- JavaScript will dynamically add medications here -->
+    </ul>
+  </div>
+
+  <!-- Correct script at the bottom of body -->
+  <script src="{{ url_for('static', filename='listview.js') }}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

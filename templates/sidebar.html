@@ -1,0 +1,44 @@
+<!-- templates/sidebar.html -->
+<div class="sidebar">
+  
+  <!-- Logo at the Top -->
+  <div class="sidebar-top">
+    <a href="/dashboard" class="logo-link">
+      <img src="{{ url_for('static', filename='icons/logo.png') }}" alt="SimpliCare Logo" class="sidebar-logo">
+    </a>
+  </div>
+
+  <!-- Sidebar Navigation Icons -->
+  <div class="sidebar-icons">
+    <a href="/dashboard" class="{% if request.path == '/dashboard' %}active{% endif %}">
+      <ion-icon name="home"></ion-icon>
+    </a>
+
+    <a href="/calendar" class="{% if request.path == '/calendar' %}active{% endif %}">
+      <ion-icon name="calendar-clear"></ion-icon>
+    </a>
+
+    <a href="/chatbot" class="{% if request.path == '/chatbot' %}active{% endif %}">
+      <ion-icon name="chatbubbles"></ion-icon>
+    </a>
+
+    <a href="/listview" class="{% if request.path == '/listview' %}active{% endif %}">
+      <ion-icon name="medkit"></ion-icon>
+    </a>
+
+    <a href="/settings" class="{% if request.path == '/settings' %}active{% endif %}">
+      <ion-icon name="cog"></ion-icon>
+    </a>
+  </div>
+
+  <!-- Logout Button -->
+  <div class="sidebar-bottom">
+    <a href="/logout">
+      <ion-icon name="log-out"></ion-icon>
+    </a>
+  </div>
+
+  <!-- Ionicons Scripts -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</div>

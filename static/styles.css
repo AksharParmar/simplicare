@@ -1,128 +1,834 @@
-/* Base setup */
+/* ------------------------------------ */
+/* Global Base Styles */
+/* ------------------------------------ */
 body {
-    font-family: 'Product Sans', sans-serif;
-    background-color: #FAF9F6; /* soft beige */
-    margin: 0;
-    padding: 0;
-    color: #00796B; /* dark teal */
-  }
-  
-  .container {
-    width: 90%;
-    max-width: 500px;
-    margin: auto;
-    padding-top: 50px;
-    text-align: center;
-  }
-  
-  /* Buttons */
-  button {
-    background-color: #00796B;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #00695C;
-  }
-  
-  /* Inputs */
-  input {
-    margin: 10px 0;
-    padding: 10px;
-    width: 90%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Medication List */
-  #medication-list {
-    margin-top: 20px;
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #B2DFDB; /* light mint */
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  
-  /* Landing Page tweaks */
-  .landing-body {
-    background-color: #FAF9F6;
-  }
-  
-  .login-form {
-    margin-top: 30px;
-  }
-  
-  .logout-btn {
-    display: inline-block;
-    margin: 10px 0 20px;
-    color: #00796B;
-    text-decoration: underline;
-    font-size: 16px;
+  font-family: 'Product Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FAF9F6; /* Soft beige */
+  color: #00796B; /* Dark teal main text */
+}
+
+h1, h2, h3, p {
+  margin: 0 0 20px 0;
+}
+
+.primary-btn {
+  background-color: #00796B;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primary-btn:hover {
+  background-color: #00695C;
+}
+
+.secondary-btn {
+  background-color: white;
+  color: #00796B;
+  border: 2px solid #00796B;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-btn:hover {
+  background-color: #00796B;
+  color: white;
+}
+
+/* ------------------------------------ */
+/* Sidebar Styles */
+/* ------------------------------------ */
+.sidebar {
+  width: 80px;
+  background-color: #ffffff;
+  border-right: 1px solid #eee;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-top {
+  margin-bottom: 20px;
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-grow: 1;
+  margin-top: 40px;
+}
+
+.sidebar-icons a {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #00796B; /* Dark teal */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar-icons ion-icon {
+  font-size: 24px;
+  color: #00796B;
+}
+
+.sidebar-icons a:hover {
+  background-color: #E0F2F1;
+  transform: scale(1.1);
+}
+
+.sidebar-icons a.active {
+  background-color: #00796B;
+  border-color: #00796B;
+}
+
+.sidebar-icons a.active ion-icon {
+  color: white;
+}
+
+/* Bottom logout */
+.sidebar-bottom {
+  margin-bottom: 50px;
+}
+
+.sidebar-bottom a {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #00796B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar-bottom a:hover {
+  background-color: #E0F2F1;
+  transform: scale(1.1);
+}
+
+.sidebar-bottom ion-icon {
+  font-size: 24px;
+  color: #00796B;
+}
+
+/* ------------------------------------ */
+/* Main Content Area */
+/* ------------------------------------ */
+.main-content {
+  margin-left: 100px;
+  padding: 40px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Dashboard Tiles */
+.tile-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.tile {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1 1 300px;
+  min-width: 300px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.tile h3 {
+  margin-bottom: 15px;
+}
+
+/* Dashboard Welcome Profile */
+.dashboard-profile-pic {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.welcome-section {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* Confirmation Section */
+#confirm-button {
+  width: 100%;
+}
+
+#confirmation-message {
+  margin-top: 15px;
+  color: #00796B;
+}
+
+/* ------------------------------------ */
+/* Medication Forms + List View */
+/* ------------------------------------ */
+.medication-form {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.medication-form input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.medication-list {
+  list-style: none;
+  padding: 0;
+}
+
+.medication-list li {
+  background: #E0F2F1;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.medication-list .medication-info {
+  flex-grow: 1;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #E57373;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #D32F2F;
+}
+
+/* ------------------------------------ */
+/* Landing Page */
+/* ------------------------------------ */
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #FAF9F6;
+}
+
+.landing-container {
+  text-align: center;
+}
+
+.button-group {
+  margin-top: 30px;
+}
+
+.button-group a {
+  margin: 0 10px;
+}
+
+/* ------------------------------------ */
+/* Auth Pages (Login / Register) */
+/* ------------------------------------ */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FAF9F6;
+}
+
+.auth-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.auth-form button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Flash Messages */
+.flash-container {
+  margin-bottom: 20px;
+}
+
+.flash-message {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.flash-message.success {
+  background-color: #C8E6C9;
+  color: #2E7D32;
+}
+
+.flash-message.error {
+  background-color: #FFCDD2;
+  color: #C62828;
+}
+
+/* ------------------------------------ */
+/* Expandable Sections (Settings) */
+/* ------------------------------------ */
+.expand-section {
+  margin: 20px 0;
+}
+
+.expand-btn {
+  width: 100%;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.expand-btn:hover {
+  background-color: #E0F2F1;
+}
+
+.tile.hidden {
+  display: none;
+}
+
+.tile.hidden {
+  max-height: 0;
+  padding: 0 20px;
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.tile:not(.hidden) {
+  max-height: 500px;
+  padding: 20px;
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* ------------------------------------ */
+/* Responsive Adjustments */
+/* ------------------------------------ */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
   }
 
-  /* Landing Page Specific Styles */
+  .sidebar-icons ion-icon {
+    font-size: 22px;
+  }
 
-.landing-body {
-    background-color: #FAF9F6; /* soft beige background */
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .main-content {
+    margin-left: 80px;
+    padding: 20px;
   }
-  
-  .container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 36px;
-    color: #00796B; /* dark teal */
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 18px;
-    color: #757575; /* soft grey */
-    margin-bottom: 30px;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 16px;
-  }
-  
-  button[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    background-color: #00796B; /* dark teal button */
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #00695C; /* darker teal hover */
-  }
-  
-  
+}
+/* --------- POLISHING: Soft Shadows everywhere --------- */
+
+/* Main Dashboard Tiles */
+.tile {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07); /* softer */
+}
+
+/* Medication List Items */
+
+.medication-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.medication-list li {
+  background-color: #E0F2F1; /* light teal */
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #00796B;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* light for items */
+
+}
+
+
+/* Buttons */
+.primary-btn, .secondary-btn {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Auth Containers (Login/Register Card) */
+.auth-container {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar icon links */
+.sidebar-icons a,
+.sidebar-bottom a {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar active icon */
+.sidebar-icons a.active,
+.sidebar-bottom a.active {
+  box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3); /* slight teal glow */
+}
+
+/* Expand Sections in Settings */
+.expand-btn {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Medication Form Inputs */
+.medication-form input {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Profile Picture */
+.profile-picture img,
+.dashboard-profile-pic {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------------------------ */
+/* Dashboard "My Medications" section styling fix */
+/* ------------------------------------ */
+
+.dashboard-medication-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.dashboard-medication-list li {
+  background-color: #E0F2F1; /* Light teal background */
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #00796B;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Softer shadow */
+}
+
+/* Make the text nicely spaced inside */
+.dashboard-medication-list li strong {
+  font-weight: 600;
+}
+
+/* ------------------------------------ */
+/* Existing ListView medication list (keep like before) */
+/* (already looking good) */
+/* ------------------------------------ */
+
+.medication-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.medication-list li {
+  background-color: #E0F2F1; /* Light teal */
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Light shadow */
+}
+
+.medication-list .medication-info {
+  flex-grow: 1;
+}
+
+/* Delete Button inside ListView */
+.delete-btn {
+  background-color: #E57373;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #D32F2F;
+}
+
+/* Sidebar Logo */
+.sidebar-top .logo-link {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #00796B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar-top .logo-link img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* Hover effect same as sidebar icons */
+.sidebar-top .logo-link:hover {
+  background-color: #E0F2F1;
+  transform: scale(1.1);
+}
+/* Chatbot Page Styling */
+/* Chatbot Page Styling */
+.chatbox {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chat-form input[type="text"] {
+  flex-grow: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.chat-form button {
+  background-color: #00796B;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-form button:hover {
+  background-color: #00695C;
+}
+
+/* Chat Messages */
+.message {
+  margin-bottom: 15px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  max-width: 70%;
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #E0F2F1;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+  color: #00796B;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bot-message {
+  background-color: #f5f5f5;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.chat-message.user {
+  background-color: #E0F7FA;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 60%;
+}
+
+.chat-message.bot {
+  background-color: #F1F8E9;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto;
+  margin-left: 0;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 60%;
+}
+/* --- brand palette --- */
+:root{
+  --dark-teal: #00796B;      /* headers, primary buttons */
+  --light-mint: #B2DFDB;     /* accents, hover */
+  --soft-beige: #FAF9F6;     /* warm base background */
+  --cool-grey:  #757575;
+  --soft-yellow:#FFEB3B;     /* focus / selected date highlight */
+}
+
+/* inherit global “dashboard-page” layout */
+body{
+  background: var(--soft-beige);
+  font-family: "Product Sans", system-ui, sans-serif;
+}
+
+/* card wrapper for subtle elevation */
+.card{
+  background: #fff;
+  border-radius: .8rem;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+/* ----- calendar component ----- */
+.calendar{
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.calendar__header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#fff;
+  background: var(--dark-teal);
+  padding:.5rem 1rem;
+  border-radius:.6rem .6rem 0 0;
+}
+
+#monthLabel{
+  font-size:1.25rem;
+  font-weight:600;
+  margin:0;
+}
+
+.nav-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:1.6rem;
+  cursor:pointer;
+  transition:transform .2s;
+}
+.nav-btn:hover{transform:scale(1.2);}
+
+/* grid of days */
+.calendar__grid{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:.25rem;
+  padding:.75rem .25rem 1rem;
+}
+
+.day-name, .date{
+  text-align:center;
+  padding:.5rem 0;
+}
+
+.day-name{
+  font-weight:600;
+  color:var(--cool-grey);
+}
+
+.date{
+  cursor:pointer;
+  border-radius:.5rem;
+  transition: background .2s;
+}
+.date:hover{
+  background:var(--light-mint);
+}
+
+.date--today{
+  outline:2px solid var(--dark-teal);
+  outline-offset:-2px;
+}
+.date--selected{
+  background:var(--soft-yellow);
+}
+
+/* responsive tweak */
+@media(max-width:480px){
+  #monthLabel{font-size:1.1rem;}
+}
+
+
+/* card wrapper */
+.card{
+  background:#fff;
+  border-radius:.8rem;
+  padding:1.25rem 1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+/* ---------- calendar ---------- */
+.calendar{
+  width:100 vh;       
+  max-width:none;                  
+  margin-inline:auto;
+}
+
+/* header */
+.calendar__header{
+  display:flex !important;              /* <-- keep flex */
+  justify-content:space-between;
+  align-items:center;
+  background:var(--dark-teal);
+  color:#fff;
+  padding:.5rem 1rem;
+  border-radius:.6rem .6rem 0 0;
+}
+#monthLabel{font-size:1.25rem;font-weight:600;margin:0;}
+
+.nav-btn{
+  background:none;border:none;color:inherit;
+  font-size:1.5rem;cursor:pointer;transition:transform .2s;
+}
+.nav-btn:hover{transform:scale(1.2);}
+
+/* view buttons */
+.view-switch{display:flex !important;gap:.25rem !important;}
+.view-btn{
+  background:transparent;border:none;color:inherit;
+  padding:.25rem .6rem;border-radius:.4rem;
+  font-weight:600;cursor:pointer;transition:background .2s;
+}
+.view-btn.active,
+.view-btn:hover{background:rgba(255,255,255,.15);}
+
+/* grid for month/week/day cells */
+.calendar__grid{
+  display:grid !important;              /* <-- force grid */
+  grid-template-columns:repeat(7,1fr);
+  gap:.25rem !important;
+  padding:.75rem .25rem 1rem;
+}
+
+/* cells */
+.day-name,.date{text-align:center;padding:.5rem 0;}
+.day-name{font-weight:600;color:var(--cool-grey);}
+
+.date{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;border-radius:.5rem;
+  transition:background .2s;
+  aspect-ratio: 1 / 1;
+  font-size: clamp(.8rem,1.5vw,1rem);
+}
+
+.date:hover{background:var(--light-mint);}
+.date--today{
+  outline:2px solid var(--dark-teal);
+  outline-offset:-2px;
+}
+.date--selected{background:var(--soft-yellow);}
+
+/* small-screen tweak */
+@media(max-width:480px){#monthLabel{font-size:1.1rem;}}
+
+/* if .main-content is your flex column: */
+.main-content{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;           /* full viewport height */
+}
+
+.calendar.card{
+  flex:1 1 auto;              /* grow to fill leftover space */
+  height:70vh;                /* ≈70 % of the viewport height */
+  overflow:auto;            /* scroll if content overflows */
+  width:70vw;
+  max-width:1100px;
+  min-width:600px;
+
+  /* center it; remove if you prefer left-aligned */
+  margin-inline:auto;
+
+  /* let it grow vertically if you followed earlier height advice */
+  flex:1 1 auto;
+}
+
+

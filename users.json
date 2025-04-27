@@ -1,45 +1,36 @@
 {
-  "john_doe": {
-    "password": "$2b$12$N8kn1PSAJuDHL/E...",
+  "aksharp21": {
+    "password": "$2b$12$pIaIVaCF9pYJ75nGsnBPmOoWu6u34hXAOCBZyySWtF3guwqwfGio.",
     "medications": [
       {
-        "medName": "Aspirin",
-        "dosage": "10mg",
-        "time": "08:00"
-      }
-    ]
-  },
-  "sarah_smith": {
-    "password": "$2b$12$d8xnX78...",
-    "medications": []
-  },
-  "akshar": {
-    "password": "$2b$12$HgigP.UFj9VEqCLPetIM3uBushB8crlC4LNyhfXFItDLl78zNPnmS",
-    "medications": [
-      {
-        "medName": "Ibiprophen",
-        "dosage": "100mg",
-        "time": "15:32"
+        "name": "Benadryl",
+        "dosage": "100",
+        "daily_intake": "2",
+        "weekly_frequency": "4"
       },
       {
-        "medName": "Ibiprophen",
-        "dosage": "10mg",
-        "time": "12:31"
+        "name": "Ibiprophen",
+        "dosage": "100",
+        "daily_intake": "1",
+        "weekly_frequency": "4"
       }
-    ]
+    ],
+    "display_name": "Akshar",
+    "email": "",
+    "profile_pic": null
   },
-  "akshar ": {
-    "password": "$2b$12$2U3wlCgxxh8V6N1TdieHHOWWo1f8jfWG5luNTlFkstg7ORNdYvuGy",
-    "medications": []
-  },
-  "manav patel": {
-    "password": "$2b$12$U2zIYBdD3ghzwmphskvbB.qwpU8y1nQpF4OCE8xzCZHamTpum7/gO",
+  "jontest": {
+    "password": "$2b$12$INDC8lq81kW7pfQ8QwBA2e.8YjqOcUeBCk82a64FLPmNPKlVF.BeO",
     "medications": [
       {
-        "medName": "adfasf",
-        "dosage": "asfasf",
-        "time": "01:23"
+        "name": "Ibiprophen",
+        "dosage": "1",
+        "daily_intake": "2",
+        "weekly_frequency": "2"
       }
-    ]
+    ],
+    "display_name": "Johan Test",
+    "email": "",
+    "profile_pic": null
   }
 }
