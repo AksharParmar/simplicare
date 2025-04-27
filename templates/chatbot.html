@@ -4,10 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>SimpliCare - Medical Chatbot</title>
-  
+
   <!-- Styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Product+Sans&display=swap" rel="stylesheet">
+
+  <!-- Ionicons for Send Button -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body class="dashboard-page">
@@ -17,21 +21,32 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <h1>Ask Your Medical Assistant 🤖💊</h1>
 
     <!-- Chat Box -->
     <div id="chatbox" class="chatbox">
-      <!-- Chat messages will appear here -->
+
+      <!-- ✨ Welcome Message (Now inside the chatbox) -->
+      <div class="welcome-message">
+        <h1 style="text-align: center;">✨</h1> <!-- Center aligned -->
+        <h2>Welcome, {{ display_name }}!</h2>
+        <p>How can I help you today?</p>
+      </div>
+
+      <!-- Chat messages will appear below the welcome message -->
     </div>
 
     <!-- Chat Form -->
     <form id="chat-form" class="chat-form">
       <input type="text" id="user-input" placeholder="Ask about your medications..." required autocomplete="off">
-      <button type="submit" class="primary-btn">Send</button>
+      <button type="submit">
+        <ion-icon name="send-outline"></ion-icon>
+      </button>
     </form>
+
   </div>
 
-  <!-- Scripts (Always load JS after HTML) -->
+  <!-- Scripts -->
   <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+
 </body>
 </html>

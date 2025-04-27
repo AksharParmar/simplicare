@@ -555,41 +555,114 @@ h1, h2, h3, p {
 }
 /* Chatbot Page Styling */
 /* Chatbot Page Styling */
-.chatbox {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  height: 400px;
-  overflow-y: auto;
-  margin-bottom: 20px;
+body.dashboard-page {
+  background-color: var(--soft-beige);
   display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Product Sans", system-ui, sans-serif;
 }
 
+/* Main Chat Container */
+.chat-container {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 60%;
+  max-width: 850px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Welcome Message */
+.welcome-message {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.welcome-message h2 {
+  color: var(--dark-teal);
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.welcome-message p {
+  color: var(--cool-grey);
+  font-size: 18px;
+
+}
+.chatbox {
+  background: var(--soft-beige);
+  flex-grow: 1;
+  width: calc(100% - 60px); /* Shrinks inside the parent */
+  overflow-y: auto;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 20px auto 0 auto; /* Centers horizontally */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  scroll-behavior: smooth;
+
+}
+
+.chat-message {
+  padding: 14px 20px;
+  border-radius: 20px;
+  max-width: 70%;
+  font-size: 16px;
+  line-height: 1.5;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  word-break: break-word;
+}
+
+.chat-message.user {
+  background-color: var(--light-mint);
+  align-self: flex-end;
+  text-align: right;
+  color: var(--dark-teal);
+}
+
+.chat-message.bot {
+  background-color: var(--soft-yellow);
+  align-self: flex-start;
+  text-align: left;
+  color: #333;
+}
+
+/* Chat Form */
 .chat-form {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  width: 100%;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .chat-form input[type="text"] {
   flex-grow: 1;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px 20px;
+  border-radius: 30px;
   border: 1px solid #ccc;
+  background: #ffffff;
   font-size: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Send Button */
 .chat-form button {
-  background-color: #00796B;
-  color: white;
-  padding: 12px 20px;
+  background-color: var(--dark-teal);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
 
@@ -597,55 +670,11 @@ h1, h2, h3, p {
   background-color: #00695C;
 }
 
-/* Chat Messages */
-.message {
-  margin-bottom: 15px;
-  padding: 12px 18px;
-  border-radius: 12px;
-  max-width: 70%;
-  font-size: 15px;
-  line-height: 1.4;
-  word-wrap: break-word;
+.chat-form button ion-icon {
+  color: white;
+  font-size: 24px;
 }
 
-.user-message {
-  background-color: #E0F2F1;
-  align-self: flex-end;
-  text-align: right;
-  margin-left: auto;
-  color: #00796B;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.bot-message {
-  background-color: #f5f5f5;
-  align-self: flex-start;
-  text-align: left;
-  margin-right: auto;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-.chat-message.user {
-  background-color: #E0F7FA;
-  align-self: flex-end;
-  text-align: right;
-  margin-left: auto;
-  margin-right: 0;
-  padding: 10px;
-  border-radius: 8px;
-  max-width: 60%;
-}
-
-.chat-message.bot {
-  background-color: #F1F8E9;
-  align-self: flex-start;
-  text-align: left;
-  margin-right: auto;
-  margin-left: 0;
-  padding: 10px;
-  border-radius: 8px;
-  max-width: 60%;
-}
 /* --- brand palette --- */
 :root{
   --dark-teal: #00796B;      /* headers, primary buttons */
@@ -668,6 +697,7 @@ body{
   padding: 1.25rem 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
 }
+
 
 /* ========================================================== */
 /* 5.  CALENDAR COMPONENT                                     */
@@ -751,4 +781,10 @@ body{
 @media(max-width:480px){
   #monthLabel{font-size:1.2rem;}
   .nav-btn--square{width:36px;height:36px;font-size:1.2rem;}
+}
+.dashboard-profile-placeholder {
+  font-size: 80px;  /* or 120px if you want bigger */
+  color: #00796B;
+  display: block;
+  margin-bottom: 10px;
 }

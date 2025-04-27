@@ -32,5 +32,43 @@
     "display_name": "Johan Test",
     "email": "",
     "profile_pic": null
+  },
+  "aksharparmar21": {
+    "password": "$2b$12$u.H4L.tF72Cl35LDw.bxwe7o2MW3IfSV0R4t.F716M.fI0LUtg1h.",
+    "medications": [
+      {
+        "name": "Lipitor",
+        "dosage": "80",
+        "daily_intake": "1",
+        "weekly_frequency": "5"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "40",
+        "daily_intake": "1",
+        "weekly_frequency": "5"
+      },
+      {
+        "name": "Metformin",
+        "dosage": "500",
+        "daily_intake": "2",
+        "weekly_frequency": "5"
+      },
+      {
+        "name": "Amoxicillin",
+        "dosage": "250",
+        "daily_intake": "1",
+        "weekly_frequency": "5"
+      },
+      {
+        "name": "Eliquis",
+        "dosage": "3",
+        "daily_intake": "3",
+        "weekly_frequency": "7"
+      }
+    ],
+    "display_name": "Akshar Parmar",
+    "email": "akshar1869@gmail.com",
+    "profile_pic": "static/profile_pics\\ChatGPT_Image_Apr_27_2025_09_29_52_AM.png"
   }
 }

@@ -19,14 +19,7 @@
 
     <!-- Welcome Section -->
 <div class="welcome-section">
-  {% if profile_pic %}
-    <img src="{{ url_for('static', filename=profile_pic.split('static/')[-1]) }}"
-         alt="Profile Picture"
-         class="dashboard-profile-pic">
-  {% else %}
-    <!-- exact tag you provided, no extra attributes added -->
     <ion-icon name="person-circle-outline"></ion-icon>
-  {% endif %}
   <h1>Welcome, {{ display_name }} 👋</h1>
 </div>
     <!-- Tile Grid Section -->

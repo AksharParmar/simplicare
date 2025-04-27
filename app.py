@@ -11,59 +11,36 @@ import dotenv
 import os
 # <<< End Gemini Imports >>>
 
-
 from datetime import timedelta
 from werkzeug.utils import secure_filename
-
 
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-# >>> IMPORTANT: Change this secret key for production <<<
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'your_default_secret_key_if_env_not_set')
-# <<< End IMPORTANT >>>
-
 app.permanent_session_lifetime = timedelta(minutes=15)
 
-# Database file
 USERS_FILE = 'users.json'
-
-# Profile picture uploads
 UPLOAD_FOLDER = 'static/profile_pics'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # --- Gemini API Configuration ---
-# >>> Configure Gemini API KEY <<<
-# It's recommended to load your API key from environment variables
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 if not GOOGLE_API_KEY:
-    # In a production app, you might want to log this and exit
     print("Warning: GOOGLE_API_KEY environment variable not set.")
-    print("Please set the GOOGLE_API_KEY environment variable with your Google Gemini API key.")
-    # You might want to raise an error or handle this more gracefully
-    # if the API is strictly necessary for the app to run.
-    # For this example, we'll proceed but the /ask route will fail without it.
 else:
     genai.configure(api_key=GOOGLE_API_KEY)
     print("Gemini API configured successfully.")
 
-# Initialize the Gemini model once globally after configuration
-# This is more efficient than creating the model in every request
 try:
-    # Choose a Gemini model (e.g., 'gemini-pro' for text generation)
-    # Use a recent model like 'gemini-1.5-flash-latest' if available and preferred
-    # You can list available models using genai.list_models() if needed
-    gemini_model = genai.GenerativeModel('gemini-1.5-flash-latest') # Or 'gemini-1.5-flash-latest' etc.
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash-latest')
     print("Gemini model loaded.")
 except Exception as e:
-    gemini_model = None # Set to None if configuration failed
+    gemini_model = None
     print(f"Error loading Gemini model: {e}")
-    print("The /ask route will not function.")
-
-# <<< End Gemini API Configuration >>>
-
+# --- End Gemini API Configuration ---
 
 # ---------------- HELPER FUNCTIONS ----------------
 
@@ -83,12 +60,10 @@ def allowed_file(filename):
 
 # ---------------- ROUTES ----------------
 
-# Landing Page
 @app.route('/')
 def landing():
     return render_template('landing.html')
 
-# Login Page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -115,7 +90,6 @@ def login():
 
     return render_template('login.html')
 
-# Register Page
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -154,7 +128,6 @@ def register():
 
     return render_template('register.html')
 
-# Dashboard
 @app.route('/dashboard')
 def dashboard():
     if 'username' not in session:
@@ -165,29 +138,24 @@ def dashboard():
         profile_pic=session.get('profile_pic')
     )
 
-# Calendar View
 @app.route('/calendar')
 def calendar():
     if 'username' not in session:
         return redirect('/')
     return render_template('calendar.html')
 
-# Chatbot View
 @app.route('/chatbot')
 def chatbot():
     if 'username' not in session:
         return redirect('/')
-    # You'll need to create a chatbot.html template
-    return render_template('chatbot.html')
+    return render_template('chatbot.html', display_name=session.get('display_name', 'Friend'))
 
-# List View
 @app.route('/listview')
 def listview():
     if 'username' not in session:
         return redirect('/')
     return render_template('listview.html')
 
-# Settings View
 @app.route('/settings')
 def settings():
     if 'username' not in session:
@@ -198,7 +166,6 @@ def settings():
         profile_pic=session.get('profile_pic')
     )
 
-# Logout
 @app.route('/logout')
 def logout():
     session.clear()
@@ -206,7 +173,6 @@ def logout():
 
 # ---------------- MEDICATION APIs ----------------
 
-# Add Medication
 @app.route('/add_medication', methods=['POST'])
 def add_medication():
     if 'username' not in session:
@@ -237,7 +203,6 @@ def add_medication():
 
     return jsonify({'message': 'Medication added successfully'})
 
-# Get Medications (NEW)
 @app.route('/get_medications', methods=['GET'])
 def get_medications():
     if 'username' not in session:
@@ -249,7 +214,6 @@ def get_medications():
     medications = users.get(username, {}).get('medications', [])
     return jsonify(medications)
 
-# Delete Medication
 @app.route('/delete_medication/<int:index>', methods=['DELETE'])
 def delete_medication(index):
     if 'username' not in session:
@@ -267,7 +231,6 @@ def delete_medication(index):
 
 # ---------------- PROFILE APIs ----------------
 
-# Update Profile
 @app.route('/update_profile', methods=['POST'])
 def update_profile():
     if 'username' not in session:
@@ -279,7 +242,7 @@ def update_profile():
 
     name = request.form.get('name')
     email = request.form.get('email')
-    new_username = request.form.get('username') # Be careful with username changes, requires updating session etc.
+    new_username = request.form.get('username')
     password = request.form.get('password')
     profile_pic = request.files.get('profile_pic')
 
@@ -291,18 +254,15 @@ def update_profile():
     if password:
         hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         user['password'] = hashed_pw.decode('utf-8')
-    # Handling username change is complex (sessions, keys in dict) - simplified here
     if new_username and new_username != username:
-         # Check if new username is already taken
-         if new_username in users:
-             flash('New username already exists.', 'error')
-         else:
-            users[new_username] = users.pop(username) # Rename the key
-            session['username'] = new_username # Update session
-            username = new_username # Update local variable for saving
+        if new_username in users:
+            flash('New username already exists.', 'error')
+        else:
+            users[new_username] = users.pop(username)
+            session['username'] = new_username
+            username = new_username
 
     if profile_pic and allowed_file(profile_pic.filename):
-        # Make sure the upload folder exists
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
             os.makedirs(app.config['UPLOAD_FOLDER'])
         filename = secure_filename(profile_pic.filename)
@@ -311,137 +271,102 @@ def update_profile():
         user['profile_pic'] = filepath
         session['profile_pic'] = filepath
 
-    # Ensure user is saved under the (potentially new) username
     users[username] = user
     save_users(users)
     flash('Profile updated successfully!', 'success')
-    return redirect(url_for('settings')) # Redirect back to settings page
+    return redirect(url_for('settings'))
 
-# Delete Account
-@app.route('/delete_account', methods=['POST'])
-def delete_account():
+# ✅ ✅ ✅ --- ADD THIS NEW ROUTE --- ✅ ✅ ✅
+@app.route('/upload_profile_pic', methods=['POST'])
+def upload_profile_pic():
     if 'username' not in session:
         return redirect('/')
 
-    users = load_users()
-    username = session['username']
+    if 'profile_pic' not in request.files:
+        flash('No file selected.', 'error')
+        return redirect(url_for('dashboard'))
 
-    if username in users:
-        del users[username]
+    file = request.files['profile_pic']
+
+    if file.filename == '':
+        flash('No selected file.', 'error')
+        return redirect(url_for('dashboard'))
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(save_path)
+
+        users = load_users()
+        username = session['username']
+        users[username]['profile_pic'] = save_path
         save_users(users)
 
-    session.clear()
-    flash('Your account has been deleted.', 'success')
-    return redirect('/')
+        session['profile_pic'] = save_path
+        flash('Profile picture updated successfully!', 'success')
+        return redirect(url_for('dashboard'))
+
+    flash('Invalid file type.', 'error')
+    return redirect(url_for('dashboard'))
 
 # --- Gemini Chatbot API Endpoint ---
-# >>> Implement /ask route for Gemini <<<
 @app.route('/ask', methods=['POST'])
 def ask():
-    # Check if user is logged in
     if 'username' not in session:
-        # If using a public chatbot, you might remove this check
-        # If it's user-specific, keep it.
         return jsonify({'error': 'Unauthorized'}), 403
 
-    # Check if the Gemini model was initialized successfully
     if gemini_model is None:
-         return jsonify({'error': 'Chatbot service is not available. API key or model setup failed.'}), 503
+        return jsonify({'error': 'Chatbot service is not available.'}), 503
 
-    # --- ADD THIS LINE ---
-    username = session['username'] # Get the logged-in username
-    # ----------------------
-
+    username = session['username']
     data = request.get_json()
     user_message = data.get('message', '')
 
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
 
-    # --- ADD THIS ENTIRE BLOCK HERE ---
-    # Load user data and medications
-    users = load_users() # Make sure load_users() function is defined elsewhere in your app.py
-    user_data = users.get(username, {}) # Get the specific user's data
-    medications = user_data.get('medications', []) # Get the medications list (defaults to empty list if none)
+    users = load_users()
+    user_data = users.get(username, {})
+    medications = user_data.get('medications', [])
 
-    # Format the medication data into a string for the prompt
     medication_data_string = ""
     if medications:
-        medication_data_string += "User's Registered Medications:\n" # Clear heading for the AI
-        for i, med in enumerate(medications):
-            # Format each medication details clearly for the AI
+        medication_data_string += "User's Registered Medications:\n"
+        for med in medications:
             medication_data_string += f"- Name: {med.get('name', 'N/A')}, Dosage: {med.get('dosage', 'N/A')}, Daily Intake: {med.get('daily_intake', 'N/A')}, Weekly Frequency: {med.get('weekly_frequency', 'N/A')}\n"
-        medication_data_string += "Use this list ONLY for questions about the user's medications. Do not invent data.\n\n" # Clear instruction for the AI
+        medication_data_string += "\nUse this list ONLY for medication-related queries.\n"
     else:
-        medication_data_string += "The user has no registered medications.\n\n" # Indicate absence of meds
-
-    # --- ADD END ---
-
+        medication_data_string += "The user has no registered medications.\n\n"
 
     try:
-        # Your existing tone instruction
-        tone_instruction = """Act as a helpful, friendly, and simple health assistant.
-        Provide information about general health concepts and registered medications.
-        NEVER give specific medical advice, diagnose, or recommend treatments.
-        Always tell the user to consult a healthcare professional for personal health concerns.
-        Keep responses easy to understand.
+        tone_instruction = """Act as a friendly, simple health assistant. 
+        Provide general health information, but never give medical advice. 
+        Always recommend consulting a doctor for serious issues.
         """
 
-        # --- MODIFY THIS LINE ---
-        # OLD: full_prompt = f"{tone_instruction}\n\nUser query: {user_message}"
-        # NEW:
-        # Combine tone instruction, medication data, and user's actual query
         full_prompt = f"{tone_instruction}\n\n{medication_data_string}User Query: {user_message}"
-        # --- END MODIFY THIS LINE ---
 
-        # Use the globally initialized model
-        # The generate_content method sends the prompt to Gemini
-        # This line remains the same but will now use the modified full_prompt
         response = gemini_model.generate_content(full_prompt)
 
-        # Access the text from the response object
-        # response.text is the simplest way for basic text responses
-        # A more robust way checking candidates might be needed for complex scenarios
-        # (e.g., if the model returns safety blocks instead of text)
         if response.text:
-            # You could add logging here to see the prompt and response
-            # print(f"User: {user_message}\nBot: {response.text}")
             return jsonify({'response': response.text})
         elif response.prompt_feedback:
-             # Handle cases where the prompt was blocked
-             safety_ratings = response.prompt_feedback.safety_ratings
-             print(f"Prompt blocked due to safety reasons: {safety_ratings}")
-             # You might return a specific message to the user
-             return jsonify({'response': "I'm sorry, I cannot respond to that query due to safety policies."})
+            return jsonify({'response': "Sorry, I couldn't answer due to safety reasons."})
         else:
-             # Handle other cases where no text was returned
-             print(f"Gemini returned no text and no prompt feedback for prompt: {user_message}")
-             print(f"Full response object: {response}")
-             return jsonify({'response': "I'm sorry, I couldn't generate a response for that."}), 500
-
+            return jsonify({'response': "Sorry, no response could be generated."}), 500
 
     except Exception as e:
-        print(f"An error occurred during Gemini API call: {e}")
-        # Log the full traceback for debugging server-side
         import traceback
         traceback.print_exc()
-        return jsonify({'error': 'Failed to get response from Gemini. Please try again.'}), 500
-
-# <<< End Gemini Chatbot API Endpoint >>>
+        return jsonify({'error': 'Failed to get response from Gemini.'}), 500
 
 # ---------------- MAIN ----------------
 
 if __name__ == '__main__':
-    # Create upload directory if it doesn't exist
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    # Create users.json file if it doesn't exist
     if not os.path.exists(USERS_FILE):
-         with open(USERS_FILE, 'w') as f:
-              json.dump({}, f)
+        with open(USERS_FILE, 'w') as f:
+            json.dump({}, f)
 
-
-    # Set the secret key from environment variable if available
-    # app.run will pick up the secret_key configured globally
-    # IMPORTANT: In production, debug=False and serve with a production WSGI server (like Gunicorn or uWSGI)
     app.run(debug=True)
