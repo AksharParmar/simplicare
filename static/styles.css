@@ -176,6 +176,14 @@ h1, h2, h3, p {
   text-align: left;
   margin-bottom: 20px;
 }
+/* Style the fallback icon shown in the welcome section */
+.welcome-section ion-icon {
+  font-size: 120px;       /* match your img height */
+  color: #00796B;         /* same teal as your main text */
+  display: block;         /* keeps vertical centering tidy */
+  margin-bottom: 10px;    /* mirrors spacing under <img> */
+}
+
 
 /* Confirmation Section */
 #confirm-button {

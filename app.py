@@ -6,6 +6,7 @@ import base64
 
 # >>> Add Gemini Imports <<<
 import google.generativeai as genai
+import dotenv
 # Ensure os is imported above, but adding it here again for clarity if you missed it
 import os
 # <<< End Gemini Imports >>>
@@ -14,6 +15,8 @@ import os
 from datetime import timedelta
 from werkzeug.utils import secure_filename
 
+
+dotenv.load_dotenv()
 
 app = Flask(__name__)
 # >>> IMPORTANT: Change this secret key for production <<<
@@ -33,7 +36,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # --- Gemini API Configuration ---
 # >>> Configure Gemini API KEY <<<
 # It's recommended to load your API key from environment variables
-GOOGLE_API_KEY = os.environ.get('AIzaSyABf7-QG_oIC82wG8nHB7lnT5w_7NK_rd8')
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 if not GOOGLE_API_KEY:
     # In a production app, you might want to log this and exit
@@ -52,7 +55,7 @@ try:
     # Choose a Gemini model (e.g., 'gemini-pro' for text generation)
     # Use a recent model like 'gemini-1.5-flash-latest' if available and preferred
     # You can list available models using genai.list_models() if needed
-    gemini_model = genai.GenerativeModel('gemini-pro') # Or 'gemini-1.5-flash-latest' etc.
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash-latest') # Or 'gemini-1.5-flash-latest' etc.
     print("Gemini model loaded.")
 except Exception as e:
     gemini_model = None # Set to None if configuration failed
@@ -345,6 +348,9 @@ def ask():
     if gemini_model is None:
          return jsonify({'error': 'Chatbot service is not available. API key or model setup failed.'}), 503
 
+    # --- ADD THIS LINE ---
+    username = session['username'] # Get the logged-in username
+    # ----------------------
 
     data = request.get_json()
     user_message = data.get('message', '')
@@ -352,10 +358,46 @@ def ask():
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
 
+    # --- ADD THIS ENTIRE BLOCK HERE ---
+    # Load user data and medications
+    users = load_users() # Make sure load_users() function is defined elsewhere in your app.py
+    user_data = users.get(username, {}) # Get the specific user's data
+    medications = user_data.get('medications', []) # Get the medications list (defaults to empty list if none)
+
+    # Format the medication data into a string for the prompt
+    medication_data_string = ""
+    if medications:
+        medication_data_string += "User's Registered Medications:\n" # Clear heading for the AI
+        for i, med in enumerate(medications):
+            # Format each medication details clearly for the AI
+            medication_data_string += f"- Name: {med.get('name', 'N/A')}, Dosage: {med.get('dosage', 'N/A')}, Daily Intake: {med.get('daily_intake', 'N/A')}, Weekly Frequency: {med.get('weekly_frequency', 'N/A')}\n"
+        medication_data_string += "Use this list ONLY for questions about the user's medications. Do not invent data.\n\n" # Clear instruction for the AI
+    else:
+        medication_data_string += "The user has no registered medications.\n\n" # Indicate absence of meds
+
+    # --- ADD END ---
+
+
     try:
+        # Your existing tone instruction
+        tone_instruction = """Act as a helpful, friendly, and simple health assistant.
+        Provide information about general health concepts and registered medications.
+        NEVER give specific medical advice, diagnose, or recommend treatments.
+        Always tell the user to consult a healthcare professional for personal health concerns.
+        Keep responses easy to understand.
+        """
+
+        # --- MODIFY THIS LINE ---
+        # OLD: full_prompt = f"{tone_instruction}\n\nUser query: {user_message}"
+        # NEW:
+        # Combine tone instruction, medication data, and user's actual query
+        full_prompt = f"{tone_instruction}\n\n{medication_data_string}User Query: {user_message}"
+        # --- END MODIFY THIS LINE ---
+
         # Use the globally initialized model
         # The generate_content method sends the prompt to Gemini
-        response = gemini_model.generate_content(user_message)
+        # This line remains the same but will now use the modified full_prompt
+        response = gemini_model.generate_content(full_prompt)
 
         # Access the text from the response object
         # response.text is the simplest way for basic text responses
@@ -386,7 +428,6 @@ def ask():
         return jsonify({'error': 'Failed to get response from Gemini. Please try again.'}), 500
 
 # <<< End Gemini Chatbot API Endpoint >>>
-
 
 # ---------------- MAIN ----------------
 
